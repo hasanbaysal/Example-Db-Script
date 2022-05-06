@@ -7,3 +7,4 @@ View - Trigger - Stored Procedure gibi kavramlar kullanım amaçlarına uygun bi
 
 
 ![git_islevleri.jpg](https://github.com/hasanbaysal/Example-Db-Script/blob/master/relation%20diagram.png)
+![git_islevleri.jpg](https://github.com/hasanbaysal/Example-Db-Script/blob/master/db-diagram.png)
