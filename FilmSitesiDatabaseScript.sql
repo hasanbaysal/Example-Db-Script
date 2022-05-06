@@ -33,6 +33,9 @@ go
 
 
 --cinsiyet bit  => erkek=true - kadýn=false
+
+
+--------------------------------------------- Tablo Oluþturma ---------------------------------------------------------------------
 use [Filmler-ve-Flimler]
 go
 Create Table Yonetmenler
@@ -132,8 +135,17 @@ Create Table OyuncuFilmografi
 	on delete cascade
 )
 
---views
+------------------------------------------------- VÝEWS -------------------------------------------------
 go
+create table YorumLog
+( 
+	ID int,
+	Yorum nvarchar(max),
+	OlusturmaTarihi datetime,
+	SilmeTarihi datetime
+)
+go
+-------------------------------------------------VÝEWS------------------------------------------------------------------------------
 create view "Yonetmenler-ve-filmleri" as
 select YonetmenAdi,FilmAdi from Filmler  f inner join Yonetmenler y on y.YonetmenId=f.YonetmenId
 go
@@ -142,4 +154,86 @@ select k.KullaniciAd,f.FilmAdi,fav.KullaniciPuani from Favoriler fav inner join
 Kullanicilar k on k.KullaniciId = fav.KullaniciId 
 	inner join Filmler f on f.FilmId=fav.FilmId
 go
-create view 
+create view "Kullanici-Bilgisi" as
+select k.UyelikAdi,k.KullaniciAd,k.KullaniciSoyad,k.Cinsiyet from Kullanicilar k
+go
+
+create view "kategori-fav-sayýsý"
+as
+select k.KategoriAdi, COUNT(*) [sayýsý]from Favoriler fv inner join Filmler f 
+	on fv.FilmId = f.FilmId
+	inner join FilmTurleri ft
+	on ft.FilmId=f.FilmId
+	inner join Kategoriler k
+	on k.KategoriId=ft.kategoriId
+	group by k.KategoriAdi
+	
+go
+
+create view "filmler ve kategroiler" as
+select  f.FilmAdi,k.KategoriAdi from FilmTurleri ft inner join Filmler  f
+on ft.FilmId=f.FilmId
+inner join  Kategoriler k
+on ft.kategoriId=k.KategoriId
+go
+
+------------------------------------------------- STORED PROCEDURES -------------------------------------------------
+go
+create proc sp_KullanýcýGetir(@id int) as
+select *from Kullanicilar where KullaniciId=@id
+go
+create proc sp_KullanýcýYorumSayisi(@id int, @count int output) as
+select @count=COUNT(*) from Yorumlar where KullaniciId =@id
+
+go
+----örnek kullaným--------------------------
+--declare @x int 
+--exec sp_KullanýcýYorumSayisi 1, @x output
+--print @x
+------------------------------------------
+
+create proc sp_FilminKategorisi(@filmAdi nvarchar(max)) as
+select k.KategoriAdi from FilmTurleri ft inner join kategoriler k
+on k.KategoriId=ft.kategoriId
+inner join Filmler f on f.FilmId=ft.FilmId
+where f.FilmAdi = @filmAdi
+
+go
+------------örnek kullaným-----------------
+--exec sp_FilminKategorisi 'eyes wide shut'
+
+
+create proc sp_OyuncuFilmleriGetir(@ad nvarchar(max) , @soyad nvarchar(max)) as
+select f.FilmAdi,o.OyuncuAdi,o.OyuncuSoyAdi, oyuncuflim.Karakteri from OyuncuFilmografi oyuncuflim inner join Oyuncular o
+on oyuncuflim.OyuncuId =o.OyuncuId
+inner join filmler f on f.FilmId =oyuncuflim.FilmId
+where OyuncuAdi = @ad and OyuncuSoyAdi=@soyad
+go
+
+-------------örnek kullaným------------------
+--exec sp_OyuncuFilmleriGetir 'orlando','bloom'
+
+
+------------------------------------------------- Trigger ------------------------------------------------------------------------
+
+--silinen yorumu yorumloglara eklemek 
+
+Create Trigger triggerYorumlar
+on Yorumlar
+after delete
+as
+declare @Id nvarchar(max), @yorum nvarchar(max),@Olusmatarih datetime
+select  @Id=KullaniciId,@yorum=YorumText,@Olusmatarih=YorumTarih from deleted
+insert YorumLog Values(@Id,@yorum,@Olusmatarih,GETDATE())
+go
+--Yorum update edilirse yorumun eski halini yorum loglara eklemek
+create Trigger YorumUpdate
+on Yorumlar
+for update
+as
+declare @Id nvarchar(max), @yorumEskiYorum nvarchar(max),@Olusmatarih datetime
+select  @Id=KullaniciId,@yorumEskiYorum =YorumText,@Olusmatarih=YorumTarih from deleted
+insert YorumLog Values(@Id,@yorumEskiYorum+'##update##',@Olusmatarih,GETDATE())
+
+
+
