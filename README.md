@@ -1,7 +1,7 @@
 # Example-Db-Script
 View- Trigger - Stored Procedure - Contraints - Tsql kavramlarını kullanarak örnek bir veri tabanını sıfırdan oluşturmak
 Veritabanı kavramlarını ele aldığım bu örnek projede sıfırdan ilişkisel modelini kurmak sonrasında veritabanı scriptleri ile veritabanını oluşturma işlemini yaptım.
-View - Trigger - Stored Procedure gibi kavramlar kullanım amaçlarına uygun bir şekilde yazmaya gayret etiim. Ödevlerinizde çalışmalarınızda isteğdiğiniz gibi kullanabilir, sql kavramları üzerinde pratik bir tekrar yapabilirsiniz.
+View - Trigger - Stored Procedure gibi kavramlar kullanım amaçlarına uygun bir şekilde yazmaya gayret etiim. Ödevlerinizde çalışmalarınızda istediğiniz gibi kullanabilir, sql kavramları üzerinde pratik bir tekrar yapabilirsiniz.
 
 İlerleyen süreçte transaction işlemleri ve İndex yapılarını execution planlarla bir şekilde göstermeyi planlıyorum. 
 
