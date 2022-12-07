@@ -5,8 +5,8 @@
 		-- commit tran =>iþlemi baþarý ile sona erdir
 		-- rollback tran => iþlemi geriye al
 
---Transcationlar genelde Stored Procedures gibi yapýlarla birlikte kullanýlýr. Bir dizi sql kodunuz var baþladýnýz
--- kodlama ama bazý þeyler ters gitti iþlemem tamamlanamadý ve yarýda kesildi 
+--Transcationlar genelde Stored Procedures gibi yapýlarla birlikte kullanýlýr. Bir dizi sql kodunuz var sp içinde
+-- iþlem baþladý ama bazý þeyler ters gitti iþlemem tamamlanamadý ve yarýda kesildi 
 -- ama siz bu  sorunlu iþleme gelene kadar 3 tabloda deðiþiklik yaptýnýz onlar iþlendi bile çoktan tablolara
 --  o zaman bu iþlemi en baþa sanki hiç olmamýþ gibi geri almak istiyorsanýz iþte transaction tam bunun için var
 
@@ -19,17 +19,17 @@
 use Northwind
 go
 
- begin tran 
+ begin tran --transaction baþlatýyorum
  declare @i int
  delete from Personeller where PersonelID>1
  set @i = @@ROWCOUNT
  if @i =1
  	begin
  		print 'kayýt silindi'
- 		commit
+ 		commit --iþlem istediðim gibi ise commit 
  	end
  else
  	begin
  		print 'kayýt silinemedi'
- 		rollback
+ 		rollback --iþlem istemedðim gibiyse rollback yapýyorum bu noktada
  	end
