@@ -8,6 +8,8 @@ Veritabanı kavramlarını ele aldığım bu örnek projede sıfırdan ilişkise
 3. Constraints oluşturma
 4. View oluşturma
 5. Trigger Oluşturma
+6. Transaction Kullanımı basit örnek 
+
 ---
 - [ ] *View - Trigger - Stored Procedure gibi kavramlar kullanım amaçlarına uygun bir şekilde yazmaya gayret etiim. Ödevlerinizde, çalışmalarınızda istediğiniz gibi kullanabilir, sql kavramları üzerinde pratik bir tekrar yapabilirsiniz.*
 
