@@ -3,12 +3,13 @@
 ### Wiew- Trigger - Stored Procedure - Contraints - Tsql kavramlarını kullanarak örnek bir veri tabanını sıfırdan oluşturmak ###
 
 Veritabanı kavramlarını ele aldığım bu örnek projede sıfırdan ilişkisel modelini kurarak TSQL ile veritabanını öğelerini oluşturma işlemlerini yaptım. 
-1. Tsql  mecvut serverda aynı isimli bir veri tabanı var mı kontrol etme
+1. Tsql ile mecvut serverda aynı isimli bir veri tabanı var mı kontrol etme
 2. Tablo oluşturma
-3. Constraints oluşturma
+3. Constraints oluşturma 
 4. View oluşturma
 5. Trigger Oluşturma
 6. Transaction Kullanımı basit örnek 
+7. Stored Procedure oluşturma
 
 ---
 - [ ] *View - Trigger - Stored Procedure gibi kavramlar kullanım amaçlarına uygun bir şekilde yazmaya gayret etiim. Ödevlerinizde, çalışmalarınızda istediğiniz gibi kullanabilir, sql kavramları üzerinde pratik bir tekrar yapabilirsiniz.*
