@@ -7,7 +7,7 @@ Veritabanı kavramlarını ele aldığım bu örnek projede sıfırdan ilişkise
 2. Tablo oluşturma
 3. Constraints oluşturma 
 4. View oluşturma
-5. Trigger Oluşturma
+5. Trigger Oluşturma - Trigger basit bir şekilde otomatik loglama
 6. Transaction Kullanımı basit örnek 
 7. Stored Procedure oluşturma
 
